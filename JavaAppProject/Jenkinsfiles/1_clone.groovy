@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/YourUsername/JavaApp.git'
+                git 'https://github.com/yogita-github/EmptyRepo.git'
                 echo '✅ Code cloned.'
             }
         }
