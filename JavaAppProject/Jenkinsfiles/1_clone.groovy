@@ -1,1 +1,11 @@
-pipeline { agent any; stages { stage('Clone') { steps { git 'https://github.com/YOUR_USERNAME/JavaApp-Automation.git' } } } }
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/YourUsername/JavaApp.git'
+                echo '✅ Code cloned.'
+            }
+        }
+    }
+}
