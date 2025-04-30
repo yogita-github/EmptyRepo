@@ -1,1 +1,7 @@
-pipeline { agent any; stages { stage('Build') { steps { sh 'scripts/build.sh' } } } }
+pipeline { agent any; stages { stage('Build') {
+    steps {
+        bat 'echo Building on Windows...'
+           }
+        }
+       } 
+   }
