@@ -1,11 +1,13 @@
 pipeline {
     agent any
     stages {
-        stage('Clone Repo') {
+        stage('Clone') {
             steps {
-                git 'https://github.com/yogita-github/EmptyRepo.git'
-                echo '✅ Code cloned.'
+                // Use the correct branch (main)
+                git branch: 'main', url: 'https://github.com/yogita-github/EmptyRepo.git'
             }
         }
+        // Add more stages for build, test, etc.
     }
 }
+
