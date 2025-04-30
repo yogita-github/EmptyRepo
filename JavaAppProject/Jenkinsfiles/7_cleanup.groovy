@@ -1,0 +1,1 @@
+pipeline { agent any; stages { stage('Cleanup') { steps { sh 'scripts/cleanup.sh' } } } }

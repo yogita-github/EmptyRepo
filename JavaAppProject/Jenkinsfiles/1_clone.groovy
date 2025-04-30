@@ -1,0 +1,1 @@
+pipeline { agent any; stages { stage('Clone') { steps { git 'https://github.com/YOUR_USERNAME/JavaApp-Automation.git' } } } }

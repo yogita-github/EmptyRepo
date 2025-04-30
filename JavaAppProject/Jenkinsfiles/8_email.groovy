@@ -1,0 +1,1 @@
+pipeline { agent any; stages { stage('Email') { steps { sh 'scripts/email.sh' } } } }
