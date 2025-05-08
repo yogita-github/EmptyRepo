@@ -33,7 +33,13 @@ pipeline {
         stage('Run') {
             steps {
                 echo 'Triggering Job-5 - Run'
-                build job: 'Job-5-Run', wait: true
+                script {
+                    try {
+                        build job: 'Job-5-Run', wait: true
+                    } catch (Exception e) {
+                        echo "Job-5-Run failed, but continuing with next jobs."
+                    }
+                }
             }
         }
 
@@ -57,8 +63,6 @@ pipeline {
                 build job: 'Job-8-Email', wait: true
             }
         }
-
-        // Optionally, you can add more stages or post-actions
     }
 
     post {
