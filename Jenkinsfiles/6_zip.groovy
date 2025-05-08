@@ -1,1 +1,1 @@
-pipeline { agent any; stages { stage('Zip') { steps { sh 'scripts/zip.sh' } } } }
+pipeline { agent any; stages { stage('Zip') { steps { bat 'scripts/zip.bat' } } } }
