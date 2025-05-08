@@ -1,13 +1,69 @@
 pipeline {
     agent any
+
     stages {
-        stage('Clone') { steps { build job: '1_Clone' } }
-        stage('Build') { steps { build job: '2_Build' } }
-        stage('Test') { steps { build job: '3_Test' } }
-        stage('Package') { steps { build job: '4_Package' } }
-        stage('Run') { steps { build job: '5_Run' } }
-        stage('Zip') { steps { build job: '6_Zip' } }
-        stage('Cleanup') { steps { build job: '7_Cleanup' } }
-        stage('Email') { steps { build job: '8_Email' } }
+        stage('Clone') {
+            steps {
+                echo 'Triggering Job-1 - Clone'
+                build job: 'Job-1-Clone', wait: true
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Triggering Job-2 - Build'
+                build job: 'Job-2-Build', wait: true
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Triggering Job-3 - Test'
+                build job: 'Job-3-Test', wait: true
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo 'Triggering Job-4 - Package'
+                build job: 'Job-4-Package', wait: true
+            }
+        }
+
+        stage('Run') {
+            steps {
+                echo 'Triggering Job-5 - Run'
+                build job: 'Job-5-Run', wait: true
+            }
+        }
+
+        stage('Zip') {
+            steps {
+                echo 'Triggering Job-6 - Zip'
+                build job: 'Job-6-Zip', wait: true
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                echo 'Triggering Job-7 - Cleanup'
+                build job: 'Job-7-Cleanup', wait: true
+            }
+        }
+
+        stage('Email') {
+            steps {
+                echo 'Triggering Job-8 - Email'
+                build job: 'Job-8-Email', wait: true
+            }
+        }
+
+        // Optionally, you can add more stages or post-actions
+    }
+
+    post {
+        always {
+            echo 'Main pipeline execution completed!'
+        }
     }
 }
