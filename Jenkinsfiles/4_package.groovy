@@ -1,1 +1,1 @@
-pipeline { agent any; stages { stage('Package') { steps { sh 'scripts/package.sh' } } } }
+pipeline { agent any; stages { stage('Package') { steps { sh 'scripts/package.bat' } } } }
