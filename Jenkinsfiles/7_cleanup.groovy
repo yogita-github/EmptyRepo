@@ -1,1 +1,10 @@
-pipeline { agent any; stages { stage('Cleanup') { steps { sh 'scripts/cleanup.sh' } } } }
+pipeline {
+    agent any
+    stages {
+        stage('Cleanup') {
+            steps {
+                bat 'scripts\\cleanup.bat'
+            }
+        }
+    }
+}
