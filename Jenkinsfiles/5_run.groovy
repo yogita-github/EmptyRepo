@@ -1,1 +1,10 @@
-pipeline { agent any; stages { stage('Run') { steps { sh 'scripts/run.sh' } } } }
+pipeline {
+    agent any
+    stages {
+        stage('Run') {
+            steps {
+                bat 'scripts\\run.bat'
+            }
+        }
+    }
+}
