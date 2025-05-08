@@ -2,19 +2,25 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from GitHub
+                git 'https://github.com/yogita-github/EmptyRepo.git'
+            }
+        }
+
         stage('Build') {
             steps {
-                // Your build steps, e.g., running a batch file
-                bat 'scripts/zip.bat'
+                // Example command that would operate on files checked out from GitHub
+                bat 'scripts/zip.bat'  // This can be a batch file that zips files
             }
         }
     }
 
     post {
         always {
-            // Archive the build artifacts after the job completes
-            archiveArtifacts artifacts: 'build/**/*', allowEmptyArchive: true
+            // Archive the files from the build folder
+            archiveArtifacts artifacts: '**/build/**/*', allowEmptyArchive: true
         }
     }
 }
-
