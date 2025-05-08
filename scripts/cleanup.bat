@@ -1,3 +1,8 @@
 @echo off
-forfiles /p "output" /m *.zip /d -2 /c "cmd /c del /f /q @file"
+if not exist output (
+    mkdir output
+    echo 🛠️ Created missing "output" folder.
+)
+del /Q output\*.zip
 echo ✅ Old zip files deleted.
+
