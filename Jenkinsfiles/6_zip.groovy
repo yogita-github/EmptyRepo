@@ -2,10 +2,9 @@ pipeline {
     agent any
 
     environment {
-        // Define GitHub repo URL and the path where it will be cloned
-        GITHUB_REPO = 'https://github.com/yogita-github/EmptyRepo.git' // Your GitHub repo URL
-        CLONE_DIR = 'D:/JenkinsAssignment/EmptyRepo'  // Local path where the repo will be cloned in Jenkins workspace (fixed path with forward slashes or double backslashes)
-        ZIP_PATH = 'D:/JenkinsAssignment/workspace/output/build_output.zip'  // Path where the zip will be saved (fixed path with forward slashes or double backslashes)
+        GITHUB_REPO = 'https://github.com/yogita-github/EmptyRepo.git'  // Your GitHub repo URL
+        CLONE_DIR = 'D:/JenkinsAssignment/EmptyRepo'  // Correct path for Jenkins workspace on D drive
+        ZIP_PATH = 'D:/JenkinsAssignment/output/build_output.zip'  // Zip file output location on D drive
     }
 
     stages {
@@ -16,23 +15,33 @@ pipeline {
             }
         }
 
-        stage('Zip Files') {
+        stage('Prepare Directories') {
             steps {
-                // Run batch script to zip the build, logs, reports from the cloned GitHub repo
-                bat """
-                    echo Zipping files from cloned GitHub repository...
-
-                    :: Define the source directory (from the cloned repo in Jenkins workspace)
-                    set SOURCE_DIR=%WORKSPACE%\\EmptyRepo\\build
-                    set ZIP_PATH=%WORKSPACE%\\output\\build_output.zip
-
-                    :: Check if the output directory exists, if not, create it
-                    if not exist "%SOURCE_DIR%" (
+                bat '''
+                    :: Ensure the output directory exists
+                    if not exist "D:/JenkinsAssignment/output" (
+                        mkdir "D:/JenkinsAssignment/output"
+                    )
+                    
+                    :: Ensure the source directory exists (you can adjust this as per your repo structure)
+                    if not exist "D:/JenkinsAssignment/EmptyRepo/src" (
                         echo Source directory does not exist!
                         exit /b 1
                     )
+                '''
+            }
+        }
 
-                    :: Run PowerShell command to zip the files from the GitHub repo
+        stage('Zip Files') {
+            steps {
+                bat '''
+                    echo Zipping files from cloned GitHub repository...
+
+                    :: Define the correct source directory where files are located
+                    set SOURCE_DIR=%WORKSPACE%\\EmptyRepo\\src
+                    set ZIP_PATH=%WORKSPACE%\\output\\build_output.zip
+
+                    :: Run PowerShell command to zip the files
                     powershell -Command "
                     Compress-Archive -Path '%SOURCE_DIR%' -DestinationPath '%ZIP_PATH%' -Force
                     "
@@ -44,8 +53,9 @@ pipeline {
                     )
 
                     echo ✅ Build zipped successfully.
-                """
+                '''
             }
         }
     }
 }
+
