@@ -1,29 +1,19 @@
 @echo off
-echo Zipping build, logs, and reports...
+echo Zipping files from GitHub repository...
 
-:: Create the output directory if it doesn't exist
-if not exist output (
-    mkdir output
+:: Define the source directory (this will be the cloned GitHub repo directory in Jenkins workspace)
+set SOURCE_DIR=%WORKSPACE%\EmptyRepo\build
+set ZIP_PATH=%WORKSPACE%\output\build_output.zip
+
+:: Check if the source directory exists
+if not exist "%SOURCE_DIR%" (
+    echo Source directory does not exist!
+    exit /b 1
 )
 
-:: Check if directories exist and zip them accordingly
+:: Run the PowerShell command to zip the files
 powershell -Command "
-$dirs = @('build', 'logs', 'reports')
-$zipPath = 'output\build_output.zip'
-
-$dirsToZip = @()
-foreach ($dir in $dirs) {
-    if (Test-Path $dir) {
-        $dirsToZip += $dir
-    }
-}
-
-if ($dirsToZip.Count -gt 0) {
-    Compress-Archive -Path $dirsToZip -DestinationPath $zipPath -Force
-} else {
-    Write-Host 'No valid directories to zip.'
-    exit 1
-}
+Compress-Archive -Path '%SOURCE_DIR%' -DestinationPath '%ZIP_PATH%' -Force
 "
 
 :: Check if the command was successful
@@ -32,6 +22,5 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-echo ✅ Build zipped.
-
+echo ✅ Build zipped successfully.
 
