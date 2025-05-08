@@ -1,2 +1,8 @@
-#!/bin/bash
-echo "Pretend this sends an email with reports/test_results.txt and build_output.zip attached."
+@echo off
+echo Pretend this sends an email with the following attachments:
+echo - reports\test_results.txt
+echo - build_output.zip
+echo.
+echo Email would be sent to: your-email@example.com
+echo.
+pause
