@@ -4,8 +4,8 @@ pipeline {
     environment {
         // Define GitHub repo URL and the path where it will be cloned
         GITHUB_REPO = 'https://github.com/yogita-github/EmptyRepo.git' // Your GitHub repo URL
-        CLONE_DIR = 'D:\JenkinsAssignment\\EmptyRepo'  // Local path where the repo will be cloned in Jenkins workspace
-        ZIP_PATH = 'D:\JenkinsAssignment\\output\\build_output.zip'  // Path where the zip will be saved
+        CLONE_DIR = 'D:/JenkinsAssignment/EmptyRepo'  // Local path where the repo will be cloned in Jenkins workspace (fixed path with forward slashes or double backslashes)
+        ZIP_PATH = 'D:/JenkinsAssignment/workspace/output/build_output.zip'  // Path where the zip will be saved (fixed path with forward slashes or double backslashes)
     }
 
     stages {
