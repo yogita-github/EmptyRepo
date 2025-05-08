@@ -1,15 +1,19 @@
 pipeline {
     agent any
+
     stages {
-        stage('Checkout SCM') {
+        stage('Build') {
             steps {
-                checkout scm
+                // Your build steps, e.g., running a batch file
+                bat 'scripts/zip.bat'
             }
         }
-        stage('Zip') {
-            steps {
-                bat 'scripts/zip.bat'  // Run your batch script to directly zip files
-            }
+    }
+
+    post {
+        always {
+            // Archive the build artifacts after the job completes
+            archiveArtifacts artifacts: 'build/**/*', allowEmptyArchive: true
         }
     }
 }
